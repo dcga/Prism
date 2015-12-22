@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,22 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Prism.Wpf.xml</DocumentationFile>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Signed|AnyCPU'">
+    <OutputPath>bin\Release-Signed\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\Prism.Wpf.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\prism.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -54,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Common\CallbackHelper.cs" />
     <Compile Include="Common\MvvmHelpers.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Events\WeakDelegatesManager.cs" />
@@ -64,6 +82,9 @@
     </Compile>
     <Compile Include="Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml.cs">
       <DependentUpon>DefaultNotificationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interactivity\DefaultPopupWindows\DefaultWindow.xaml.cs">
+      <DependentUpon>DefaultWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interactivity\InteractionRequest\Confirmation.cs" />
     <Compile Include="Interactivity\InteractionRequest\IConfirmation.cs" />
@@ -188,7 +209,6 @@
     <Compile Include="Regions\RegionBehaviorFactory.cs" />
     <Compile Include="Regions\RegionContext.cs" />
     <Compile Include="Regions\RegionManager.cs" />
-    <Compile Include="Regions\RegionManagerExtensions.cs" />
     <Compile Include="Regions\RegionMemberLifetimeAttribute.cs" />
     <Compile Include="Regions\RegionNavigationContentLoader.cs" />
     <Compile Include="Regions\RegionNavigationEventArgs.cs" />
@@ -229,6 +249,10 @@
     <Page Include="Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interactivity\DefaultPopupWindows\DefaultWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

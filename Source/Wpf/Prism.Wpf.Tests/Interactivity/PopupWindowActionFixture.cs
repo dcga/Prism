@@ -1,11 +1,11 @@
-
-
-using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Prism.Interactivity;
 using Prism.Interactivity.DefaultPopupWindows;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Wpf.Tests.Mocks;
+using System;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Prism.Wpf.Tests.Interactivity
 {
@@ -106,6 +106,53 @@ namespace Prism.Wpf.Tests.Interactivity
             Assert.ReferenceEquals(dataContext.Notification, notification);
             Assert.IsNotNull(dataContext.FinishInteraction);
         }
+
+        [TestMethod]
+        public void WhenStyleForWindowIsSet_WindowShouldHaveTheStyle()
+        {
+            TestablePopupWindowAction popupWindowAction = new TestablePopupWindowAction();
+            Style style = new Style(typeof(Window));
+            popupWindowAction.WindowStyle = style;
+
+            INotification notification = new Notification();
+            notification.Title = "Title";
+            notification.Content = "Content";
+
+            Window window = popupWindowAction.GetWindow(notification);
+
+            Assert.AreSame(window.Style, style);
+        }
+
+        [TestMethod]      
+        [ExpectedException(typeof(InvalidOperationException))]  
+        public void WhenStyleIsNotForWindowIsSet_InvalidOperationExceptionIsThrown()
+        {
+            TestablePopupWindowAction popupWindowAction = new TestablePopupWindowAction();
+            Style style = new Style(typeof(StackPanel));
+            popupWindowAction.WindowStyle = style;
+
+            INotification notification = new Notification();
+            notification.Title = "Title";
+            notification.Content = "Content";
+
+            Window window = popupWindowAction.GetWindow(notification);
+        }
+
+        [TestMethod]
+        public void WhenStartupLocationForWindowIsSet_ChildWindowHasProperty()
+        {
+            TestablePopupWindowAction popupWindowAction = new TestablePopupWindowAction();
+            popupWindowAction.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            INotification notification = new Notification();
+            notification.Title = "Title";
+            notification.Content = "Content";
+
+            Window window = popupWindowAction.GetWindow(notification);
+
+            Assert.AreEqual(window.WindowStartupLocation, WindowStartupLocation.CenterScreen);
+        }
+
     }
 
     public class TestablePopupWindowAction : PopupWindowAction
