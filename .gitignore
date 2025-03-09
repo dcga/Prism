@@ -13,13 +13,14 @@
 [Rr]eleases/
 x64/
 x86/
-build/
+# build/
 bld/
 [Bb]in/
 [Oo]bj/
 
-# Visual Studio 2015 cache/options directory
+# Visual Studio cache/options directory
 .vs/
+.droidres/
 
 # DNX
 artifacts/
@@ -131,7 +132,7 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings 
+# TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
@@ -196,9 +197,20 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
-# Security
-*.pfx
-*.snk
+# DotNet Tools
+**/build/.store/*
 
-# Allow demo temporary keys
-!*_TemporaryKey.pfx
+# MFractor
+.mfractor/
+
+# Jetbrains files
+.idea*
+
+# Binlog
+*.binlog
+
+# macOS
+.DS_Store
+
+# VSCode
+.mono
